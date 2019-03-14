@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Data", "TestTask.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Frontend", "TestTask.Frontend\TestTask.Frontend.csproj", "{4D3A3A4C-CDF6-4E5B-81F2-FD5890201947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Test", "TestTask.Test\TestTask.Test.csproj", "{86E364CA-5333-43C2-8CCC-815C641718CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Tests", "TestTask.Tests\TestTask.Tests.csproj", "{86E364CA-5333-43C2-8CCC-815C641718CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
