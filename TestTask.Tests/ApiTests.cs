@@ -13,6 +13,28 @@ namespace TestTask.Test
 {
     public class ApiTests
     {
-        
+        private readonly Mock<MyDbContext> _mockMyDbContext;
+
+        public ApiTests()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<MyDbContext>().UseInMemoryDatabase("InMemoryDb");
+            _mockMyDbContext = new Mock<MyDbContext>(optionsBuilder.Options);
+        }
+
+        [Fact]
+        public async Task GetSurveysAsync_ReturnAListOfSurves()
+        {
+            var expectedSurveys = MyDbContext.GetSeedingSurveys();
+            _mockMyDbContext.Setup(
+                db => db.GetSurveysAsync()).Returns(Task.FromResult(expectedSurveys));
+            var surveysController = new SurveysController(_mockMyDbContext.Object);
+
+            var surveys = await surveysController.GetSurveysAsync();
+
+            var actualSurveys = Assert.IsAssignableFrom<ActionResult<IEnumerable<Survey>>>(surveys).Value;
+            Assert.Equal(
+                expectedSurveys.OrderBy(s => s.Id).Select(s => s.Title),
+                actualSurveys.OrderBy(s => s.Id).Select(s => s.Title));
+        }
     }
 }

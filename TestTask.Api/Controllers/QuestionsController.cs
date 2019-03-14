@@ -20,16 +20,18 @@ namespace TestTask.Api.Controllers
 
         // Create: POST: api/Questions
         [HttpPost]
-        public async Task PostQuestionAsync(Question question)
+        public async Task<ActionResult<Question>> PostQuestionAsync(Question question)
         {
-            await _context.AddQuestionAsync(question);
+            var newQuestion = await _context.AddQuestionAsync(question);
+
+            return CreatedAtAction(nameof(GetQuestionAsync), new { id = newQuestion.Id }, newQuestion);
         }
 
         //Get all: GET: api/Questions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsAsync()
         {
-            return await _context.GetQuestionsAsync();
+            return Ok(await _context.GetQuestionsAsync());
         }
 
         // Get one: GET: api/Questions/5
@@ -43,7 +45,7 @@ namespace TestTask.Api.Controllers
                 return NotFound();
             }
 
-            return question;
+            return Ok(question);
         }
 
         // Edit: PUT: api/Questions/5
@@ -64,14 +66,16 @@ namespace TestTask.Api.Controllers
                 return BadRequest();
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // Delete: DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        public async Task DeleteQuestionAsync(int id)
+        public async Task<ActionResult> DeleteQuestionAsync(int id)
         {
             await _context.DeleteQuestionAsync(id);
+
+            return Ok();
         }
     }
 }

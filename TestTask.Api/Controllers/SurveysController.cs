@@ -20,16 +20,18 @@ namespace TestTask.Api.Controllers
 
         // Create: POST: api/Surveys
         [HttpPost]
-        public async Task PostSurveyAsync(Survey survey)
+        public async Task<ActionResult<Question>> PostSurveyAsync(Survey survey)
         {
-            await _context.AddSurveyAsync(survey);
+            var newSurvey = await _context.AddSurveyAsync(survey);
+
+            return CreatedAtAction(nameof(GetSurveyAsync), new { id = newSurvey.Id }, newSurvey);
         }
 
         //Get all: GET: api/Surveys
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Survey>>> GetSurveysAsync()
         {
-            return await _context.GetSurveysAsync();
+            return Ok(await _context.GetSurveysAsync());
         }
 
         // Get one: GET: api/Surveys/5
@@ -43,7 +45,7 @@ namespace TestTask.Api.Controllers
                 return NotFound();
             }
 
-            return survey;
+            return Ok(survey);
         }
 
         // Edit: PUT: api/Surveys/5
@@ -64,14 +66,16 @@ namespace TestTask.Api.Controllers
                 return BadRequest();
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // Delete: DELETE: api/Surveys/5
         [HttpDelete("{id}")]
-        public async Task DeleteSurveyAsync(int id)
+        public async Task<ActionResult> DeleteSurveyAsync(int id)
         {
             await _context.DeleteSurveyAsync(id);
+
+            return Ok();
         }
     }
 }

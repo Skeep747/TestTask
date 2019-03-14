@@ -42,10 +42,12 @@ namespace TestTask.Api.Data
         }
 
         //Create survey
-        public async Task AddSurveyAsync(Survey survey)
+        public async Task<Survey> AddSurveyAsync(Survey survey)
         {
             await Surveys.AddAsync(survey);
             await SaveChangesAsync();
+
+            return survey;
         }
 
         //Get all surveys
@@ -91,10 +93,11 @@ namespace TestTask.Api.Data
         }
 
         //Create question
-        public async Task AddQuestionAsync(Question question)
+        public async Task<Question> AddQuestionAsync(Question question)
         {
             await Questions.AddAsync(question);
             await SaveChangesAsync();
+            return question;
         }
 
         //Get all questions
