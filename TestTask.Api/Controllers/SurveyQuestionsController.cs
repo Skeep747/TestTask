@@ -37,7 +37,7 @@ namespace TestTask.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(survey.Questions);
+            return survey.Questions;
         }
 
         // Remove all questions from questions list in survey: DELETE: api/SurveyQuestions/{id}

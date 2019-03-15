@@ -14,8 +14,8 @@ namespace TestTask.Api.Data
         {
         }
 
-        public DbSet<Survey> Surveys { get; set; }
-        public DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
 
 
         public void Initialize()
@@ -42,7 +42,7 @@ namespace TestTask.Api.Data
         }
 
         //Create survey
-        public async Task<Survey> AddSurveyAsync(Survey survey)
+        public virtual async Task<Survey> AddSurveyAsync(Survey survey)
         {
             await Surveys.AddAsync(survey);
             await SaveChangesAsync();
@@ -51,7 +51,7 @@ namespace TestTask.Api.Data
         }
 
         //Get all surveys
-        public async Task<List<Survey>> GetSurveysAsync()
+        public virtual async Task<List<Survey>> GetSurveysAsync()
         {
             return await Surveys
                 .Include(s => s.Questions)
@@ -61,7 +61,7 @@ namespace TestTask.Api.Data
         }
 
         //Get one survey
-        public async Task<Survey> GetSurveyAsync(int id)
+        public virtual async Task<Survey> GetSurveyAsync(int id)
         {
             var survye = await Surveys.Include(s => s.Questions).FirstOrDefaultAsync(s => s.Id == id);
             survye.ViewsCount++;
@@ -70,7 +70,7 @@ namespace TestTask.Api.Data
         }
 
         //Edit survey
-        public async Task EditSurveyAsync(int id, Survey survey)
+        public virtual async Task EditSurveyAsync(int id, Survey survey)
         {
             Entry(survey).State = EntityState.Modified;
 
@@ -85,7 +85,7 @@ namespace TestTask.Api.Data
         }
 
         //Delete survey
-        public async Task DeleteSurveyAsync(int id)
+        public virtual async Task DeleteSurveyAsync(int id)
         {
             var survey = await Surveys.FindAsync(id);
 
@@ -97,7 +97,7 @@ namespace TestTask.Api.Data
         }
 
         //Create question
-        public async Task<Question> AddQuestionAsync(Question question)
+        public virtual async Task<Question> AddQuestionAsync(Question question)
         {
             await Questions.AddAsync(question);
             await SaveChangesAsync();
@@ -105,7 +105,7 @@ namespace TestTask.Api.Data
         }
 
         //Get all questions
-        public async Task<List<Question>> GetQuestionsAsync()
+        public virtual async Task<List<Question>> GetQuestionsAsync()
         {
             return await Questions
                 .OrderBy(q => q.Id)
@@ -114,13 +114,13 @@ namespace TestTask.Api.Data
         }
 
         //Get one question
-        public async Task<Question> GetQuestionAsync(int id)
+        public virtual async Task<Question> GetQuestionAsync(int id)
         {
             return await Questions.FindAsync(id);
         }
 
         //Edit question
-        public async Task EditQuestionAsync(int id, Question question)
+        public virtual async Task EditQuestionAsync(int id, Question question)
         {
             Entry(question).State = EntityState.Modified;
 
@@ -135,7 +135,7 @@ namespace TestTask.Api.Data
         }
 
         //Delete question
-        public async Task DeleteQuestionAsync(int id)
+        public virtual async Task DeleteQuestionAsync(int id)
         {
             var question = await Questions.FindAsync(id);
 
@@ -147,7 +147,7 @@ namespace TestTask.Api.Data
         }
 
         //Add question to list of questions
-        public async Task AddQuestionToServeyAsync(int id, Question question)
+        public virtual async Task AddQuestionToServeyAsync(int id, Question question)
         {
             var survey = await Surveys.FindAsync(id);
 
@@ -159,7 +159,7 @@ namespace TestTask.Api.Data
         }
 
         //Delete all qustions from qustions list in survey
-        public async Task DeleteAllQuestionsAsync(int id)
+        public virtual async Task DeleteAllQuestionsAsync(int id)
         {
             var survey = await Surveys.FindAsync(id);
 

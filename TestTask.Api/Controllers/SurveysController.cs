@@ -20,18 +20,18 @@ namespace TestTask.Api.Controllers
 
         // Create: POST: api/Surveys
         [HttpPost]
-        public async Task<ActionResult<Question>> PostSurveyAsync(Survey survey)
+        public async Task<ActionResult<Survey>> PostSurveyAsync(Survey survey)
         {
             var newSurvey = await _context.AddSurveyAsync(survey);
 
-            return CreatedAtAction(nameof(GetSurveyAsync), new { id = newSurvey.Id }, newSurvey);
+            return newSurvey;
         }
 
         //Get all: GET: api/Surveys
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Survey>>> GetSurveysAsync()
         {
-            return Ok(await _context.GetSurveysAsync());
+            return await _context.GetSurveysAsync();
         }
 
         // Get one: GET: api/Surveys/5
@@ -45,7 +45,7 @@ namespace TestTask.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(survey);
+            return survey;
         }
 
         // Edit: PUT: api/Surveys/5

@@ -22,6 +22,22 @@ namespace TestTask.Test
         }
 
         [Fact]
+        public async Task PostSurveyAsync_AddNewSurvey()
+        {
+            var survey = new Survey();
+            var returnSurvey = new Survey { Id = survey.Id++ };
+
+            _mockMyDbContext.Setup(
+                db => db.AddSurveyAsync(survey)).Returns(Task.FromResult(returnSurvey));
+
+            var surveysController = new SurveysController(_mockMyDbContext.Object);
+
+            var response = await surveysController.PostSurveyAsync(survey);
+
+            Assert.NotEqual(survey.Id, response.Value.Id);
+        }
+
+        [Fact]
         public async Task GetSurveysAsync_ReturnAListOfSurves()
         {
             var expectedSurveys = MyDbContext.GetSeedingSurveys();

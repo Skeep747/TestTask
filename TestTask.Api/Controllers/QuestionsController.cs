@@ -31,7 +31,7 @@ namespace TestTask.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsAsync()
         {
-            return Ok(await _context.GetQuestionsAsync());
+            return await _context.GetQuestionsAsync();
         }
 
         // Get one: GET: api/Questions/5
@@ -45,7 +45,7 @@ namespace TestTask.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(question);
+            return question;
         }
 
         // Edit: PUT: api/Questions/5
