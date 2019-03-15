@@ -1,0 +1,36 @@
+﻿@page "{id:int?}"
+@model TestTask.Frontend.Pages.CreateQuestionModel
+@{
+    ViewData["Title"] = "Create Question";
+}
+
+<h1 class="h2 text-center mt-2">Create Question</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Question.SurveyId"/>
+    <div class="form-group">
+        <label asp-for="Question.Title"></label>
+        <input class="form-control" asp-for="Question.Title" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Question.Text"></label>
+        <textarea class="form-control" asp-for="Question.Text" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Question.Oprion1"></label>
+        <input class="form-control" asp-for="Question.Oprion1" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Question.Oprion2"></label>
+        <input class="form-control" asp-for="Question.Oprion2" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Question.Oprion3"></label>
+        <input class="form-control" asp-for="Question.Oprion3" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Question.Comment"></label>
+        <input class="form-control" asp-for="Question.Comment" />
+    </div>
+    <input class="btn btn-outline-dark" type="submit" value="Add new question" />
+</form>

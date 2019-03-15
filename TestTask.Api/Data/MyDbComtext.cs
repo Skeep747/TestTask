@@ -37,7 +37,7 @@ namespace TestTask.Api.Data
 
             return new List<Survey>()
             {
-                new Survey(){ Title = "Survey 1", Date = DateTime.Now, Description = lorem, CreatorName = "Marcus Tullius Cicero", Questions = questions }
+                new Survey(){ Title = "Survey 1", Date = DateTime.Now, Description = lorem, Author = "Marcus Tullius Cicero", Questions = questions }
             };
         }
 
@@ -54,6 +54,7 @@ namespace TestTask.Api.Data
         public async Task<List<Survey>> GetSurveysAsync()
         {
             return await Surveys
+                .Include(s => s.Questions)
                 .OrderBy(s => s.Id)
                 .AsNoTracking()
                 .ToListAsync();
@@ -62,7 +63,10 @@ namespace TestTask.Api.Data
         //Get one survey
         public async Task<Survey> GetSurveyAsync(int id)
         {
-            return await Surveys.FindAsync(id);
+            var survye = await Surveys.Include(s => s.Questions).FirstOrDefaultAsync(s => s.Id == id);
+            survye.ViewsCount++;
+            await EditSurveyAsync(survye.Id, survye);
+            return survye;
         }
 
         //Edit survey
