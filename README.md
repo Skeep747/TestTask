@@ -2,7 +2,7 @@
 
 With the `TestTask.Frontend` project, you can create surveys and add questions to them.
 
-#### The solution consists of 4 projects:
+### The solution consists of 4 projects:
 * TestTask.Api
 * TestTask.Frontend
 * TestTask.Data
@@ -15,3 +15,9 @@ The `TestTask.Data` project contains the `Survey` and `Question` object models.
 
 The `TestTask.Tests` project contains unit tests of the `TestTask.Api` project controllers.
 Also, if you run and go to the root address of the `TestTask.Api` project, you will be taken to the `Swagger UI`, where you can test all the Api methods.
+
+#### An example of running projects you can see by clicking on the links:
+
+[TestTask.Frontend](https://testtaskfrontend16032109.azurewebsites.net)
+
+[TestTask.Api](https://testtaskapi16032019.azurewebsites.net)
