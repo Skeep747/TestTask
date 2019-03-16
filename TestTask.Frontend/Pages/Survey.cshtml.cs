@@ -14,8 +14,10 @@ namespace TestTask.Frontend.Pages
 
         public SurveyModel(IConfiguration configuration)
         {
-            _client = new HttpClient();
-            _client.BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value);
+            _client = new HttpClient
+            {
+                BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value)
+            };
         }
 
         public Survey Survey { get; set; }

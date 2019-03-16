@@ -50,7 +50,7 @@ namespace TestTask.Api.Controllers
 
         // Edit: PUT: api/Surveys/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSurveyAsync(int id, Survey survey)
+        public async Task<ActionResult> PutSurveyAsync(int id, Survey survey)
         {
             if (id != survey.Id)
             {

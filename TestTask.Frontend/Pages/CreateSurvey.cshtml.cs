@@ -14,8 +14,10 @@ namespace TestTask.Frontend.Pages
 
         public CreateSurveyModel(IConfiguration configuration)
         {
-            _client = new HttpClient();
-            _client.BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value);
+            _client = new HttpClient
+            {
+                BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value)
+            };
         }
 
         [BindProperty]
@@ -32,8 +34,6 @@ namespace TestTask.Frontend.Pages
             {
                 return Page();
             }
-
-            Survey.Date = DateTime.Now;
 
             var response = await _client.PostAsJsonAsync("api/Surveys", Survey);
             if (response.IsSuccessStatusCode)

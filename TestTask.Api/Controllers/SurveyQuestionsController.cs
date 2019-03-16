@@ -19,7 +19,7 @@ namespace TestTask.Api.Controllers
 
         // Add qustion to list of questions: POST: api/survey/{id}
         [HttpPost("{id}")]
-        public async Task<ActionResult> PutQuestionAsync(int id, Question question)
+        public async Task<ActionResult> AddQuestionAsync(int id, Question question)
         {
             await _context.AddQuestionToServeyAsync(id, question);
 
@@ -42,7 +42,7 @@ namespace TestTask.Api.Controllers
 
         // Remove all questions from questions list in survey: DELETE: api/SurveyQuestions/{id}
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteQuestionAsync(int id)
+        public async Task<ActionResult> DeleteQuestionsAsync(int id)
         {
             await _context.DeleteAllQuestionsAsync(id);
 

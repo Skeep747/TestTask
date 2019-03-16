@@ -41,9 +41,21 @@ namespace TestTask.Api.Data
             };
         }
 
+        public static List<Question> GetSeedingQuestions()
+        {
+            var questionText = "Had denoting properly jointure you occasion directly raillery. In said to of poor full be post face snug. Introduced imprudence see say unpleasing devonshire acceptance son. Exeter longer wisdom gay nor design age. Am weather to entered norland no in showing service. Nor repeated speaking shy appetite. Excited it hastily an pasture it observe. Snug hand how dare here too. ";
+
+            return new List<Question>
+            {
+                new Question{ Title = "Question 1", Text = questionText, Oprion1 = "Yes", Oprion2 = "No", Oprion3 = "Don't know" },
+                new Question{ Title = "Question 2", Text = questionText, Oprion1 = "Yes", Oprion2 = "No", Oprion3 = "Don't know", Comment = "*Small comment*" }
+            };
+        }
+
         //Create survey
         public virtual async Task<Survey> AddSurveyAsync(Survey survey)
         {
+            survey.Date = DateTime.Now;
             await Surveys.AddAsync(survey);
             await SaveChangesAsync();
 
@@ -64,8 +76,11 @@ namespace TestTask.Api.Data
         public virtual async Task<Survey> GetSurveyAsync(int id)
         {
             var survye = await Surveys.Include(s => s.Questions).FirstOrDefaultAsync(s => s.Id == id);
-            survye.ViewsCount++;
-            await EditSurveyAsync(survye.Id, survye);
+            if (survye != null)
+            {
+                survye.ViewsCount++;
+                await EditSurveyAsync(survye.Id, survye);
+            }
             return survye;
         }
 

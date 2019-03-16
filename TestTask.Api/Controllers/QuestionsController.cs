@@ -24,7 +24,7 @@ namespace TestTask.Api.Controllers
         {
             var newQuestion = await _context.AddQuestionAsync(question);
 
-            return CreatedAtAction(nameof(GetQuestionAsync), new { id = newQuestion.Id }, newQuestion);
+            return newQuestion;
         }
 
         //Get all: GET: api/Questions

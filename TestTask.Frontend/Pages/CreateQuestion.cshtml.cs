@@ -14,8 +14,10 @@ namespace TestTask.Frontend.Pages
 
         public CreateQuestionModel(IConfiguration configuration)
         {
-            _client = new HttpClient();
-            _client.BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value);
+            _client = new HttpClient
+            {
+                BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value)
+            };
         }
 
         [BindProperty]
@@ -28,8 +30,10 @@ namespace TestTask.Frontend.Pages
                 return NotFound();
             }
 
-            Question = new Question();
-            Question.SurveyId = (int)id;
+            Question = new Question
+            {
+                SurveyId = (int)id
+            };
 
             return Page();
         }
